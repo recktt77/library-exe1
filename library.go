@@ -65,7 +65,7 @@ func (l *Library) ReturnBook(id string) {
 
 func (l *Library) DisplayBooks() {
 	for _, value := range l.Books {
-		if value.isBorrowed != true {
+		if !value.isBorrowed{
 			fmt.Printf("'%s' '%s' '%s' '%v' \n", value.id, value.title, value.author, value.isBorrowed)
 		}
 	}
