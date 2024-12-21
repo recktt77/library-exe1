@@ -36,21 +36,31 @@ func (l *Library) AddBooks(title, author string) {
 }
 
 func (l *Library) BorrowBook(id string) {
-	_, ok := l.Books[id]
+	book, ok := l.Books[id]
 	if !ok {
-		fmt.Printf("Book doesn't exist")
+		fmt.Println("Book doesn't exist.")
+		return
 	}
-	l.Books[id].isBorrowed = true
-	fmt.Printf("Book '%s' succesfully borrowed", l.Books[id].title)
+	if book.isBorrowed {
+		fmt.Printf("Book '%s' is already borrowed.\n", book.title)
+		return
+	}
+	book.isBorrowed = true
+	fmt.Printf("Book '%s' successfully borrowed.\n", book.title)
 }
 
 func (l *Library) ReturnBook(id string) {
-	_, ok := l.Books[id]
+	book, ok := l.Books[id]
 	if !ok {
-		fmt.Printf("This book is not from this library")
+		fmt.Println("This book is not from this library.")
+		return
 	}
-	l.Books[id].isBorrowed = false
-	fmt.Printf("Book '%s' succesfully returned", l.Books[id].title)
+	if !book.isBorrowed {
+		fmt.Printf("Book '%s' is already returned.\n", book.title)
+		return
+	}
+	book.isBorrowed = false
+	fmt.Printf("Book '%s' successfully returned.\n", book.title)
 }
 
 func (l *Library) DisplayBooks() {
